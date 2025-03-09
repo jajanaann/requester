@@ -155,7 +155,7 @@ RS:CreateButton("Send Review", function()
     )
 
     local embed = {
-        ["title"] = "New Game Review",
+        ["title"] = "New Script Review",
         ["description"] = desc,
         ["color"] = 255
     }
