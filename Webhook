@@ -1,3 +1,5 @@
+local CoastingLibrary = getgenv().Lib
+if not Lib then return end
 
 local player = game:GetService("Players").LocalPlayer
 local startTime = tick()
