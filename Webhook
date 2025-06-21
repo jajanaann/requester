@@ -3,9 +3,9 @@ if not Lib then return end
 
 local player = game:GetService("Players").LocalPlayer
 local startTime = tick()
-local FWH = "https://discord.com/api/webhooks/1349733447996014633/0aKcKpA7zxRXgiQeNIw8IJt-VVhjFD2ZtdxNeZN4ehoBAOiq-KV0kcrx6PWCZeAp8DxD"
-local BWH = "https://discord.com/api/webhooks/1349733452433461391/EJf9TDmqiH9GoK4yH6O2g6sjMSEM8-uKXDu73eI4RpHaKF6QVuISS6_W9n_3GV2auopP"
-local RWH = "https://discord.com/api/webhooks/1349733447060553768/oey4ypwJOX8VwzaBz2F6-7wO_5dIY7UIqEsCiCh9breZKo8DYb4NOh1k-lH7fjJaRPXF"
+local FWH = "https://discord.com/api/webhooks/1349733448046346324/JjbYtqoxkCRdldMUrk5OkUjeS3fpxae2dGPtSxUPSOVrjhR46fs0GV_4oYrSOpngELJz"
+local BWH = "https://discord.com/api/webhooks/1349733452118888539/gR65Z-2mSbI80ajDwveWdOVxb4hfqk8_XXXbX2uD4ENPNAHpmHdixC1T1oPb_IIHa9S4"
+local RWH = "https://discord.com/api/webhooks/1349733038669692928/aMG_Fw1nzQRbXiPYNZOnoDOb3BTBX6o4aBiGy2a_8M4YJ-8LHnlLTkTnpb8KYpBtRi7K"
 local CD = 300
 local LSF = 0
 local LSB = 0
