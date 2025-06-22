@@ -5,17 +5,13 @@ getgenv().Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/rndmq
 local UI = getgenv().Lib
 local Tab = UI:CreateTab("Main")
 local Sec = Tab:CreateSection("Auto Place")
-
-
 local Players = game:GetService("Players")
 local Rep = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 
 local LP = Players.LocalPlayer
 local Backpack = LP:WaitForChild("Backpack")
-local Event = Rep:WaitForChild("RemoteEvents"):WaitForChild("PlaceEmployee")
-
-
+local PlaceRemote = Rep:WaitForChild("RemoteEvents"):WaitForChild("PlaceEmployee")
 local myPlot = nil
 for i = 1, 6 do
 	local plot = Workspace:WaitForChild("BasePlots"):FindFirstChild("BasePlot" .. i)
@@ -27,83 +23,48 @@ for i = 1, 6 do
 		end
 	end
 end
+local running = false
 
-
-local selectedName = nil
-local selectedTier = "Normal"
-local nameMap = {}
-
-
-local function getToolOptions()
-	local seen = {}
-	local result = {}
-	nameMap = {}
-
-	for _, tool in ipairs(Backpack:GetChildren()) do
-		if tool:IsA("Tool") then
-			local name = tool.Name
-			seen[name] = (seen[name] or 0) + 1
-		end
-	end
-
-	for name, count in pairs(seen) do
-		local display = count > 1 and (name .. " (x" .. count .. ")") or name
-		table.insert(result, display)
-		nameMap[display] = name
-	end
-
-	return result
-end
-
-
-local dropdown1 = Sec:CreateDropdown("Select Unit", getToolOptions(), 1, function(choice)
-	selectedName = nameMap[choice]
-end)
-
-
-Sec:CreateButton("Refresh Units", function()
-	local options = getToolOptions()
-	dropdown1.Refresh(options, 1, function(choice)
-		selectedName = nameMap[choice]
-	end)
-end)
-
-
-Sec:CreateDropdown("Select Tier", { "Normal", "Gold", "Rainbow" }, 1, function(choice)
-	selectedTier = choice
-end)
-
-
-local placing = false
-Sec:CreateToggle("Auto Place Employee", function(v)
-	placing = v
+Sec:CreateToggle("Auto Place All", function(v)
+	running = v
 	if not myPlot then
 		warn("Plot tidak ditemukan.")
 		return
 	end
 
+	local area = myPlot:FindFirstChild("Placement")
+	if not area then
+		warn("Placement area tidak ditemukan.")
+		return
+	end
+
+	local size = area.Size
+	local center = area.Position
+
 	task.spawn(function()
-		while placing do
-			if selectedName and selectedTier then
-				local area = myPlot:FindFirstChild("Placement")
-				if not area then warn("Placement area tidak ditemukan.") return end
+		while running do
+			for _, tool in ipairs(Backpack:GetChildren()) do
+				if not running then break end
+				if tool:IsA("Tool") then
+					local name = tool.Name
+					local variant = tool:GetAttribute("Variant") or "Normal"
 
-				local sz, pos = area.Size, area.Position
-				local x = math.random(-sz.X/2, sz.X/2)
-				local z = math.random(-sz.Z/2, sz.Z/2)
-				local y = 6
+					local x = math.random(-size.X/2, size.X/2)
+					local z = math.random(-size.Z/2, size.Z/2)
+					local y = 6
+					local cf = CFrame.new(center.X + x, y, center.Z + z)
 
-				local args = {
-					[1] = selectedName,
-					[2] = selectedTier,
-					[3] = CFrame.new(pos.X + x, y, pos.Z + z)
-				}
+					local args = {
+						[1] = name,
+						[2] = variant,
+						[3] = cf,
+					}
 
-				pcall(function()
-					Event:FireServer(unpack(args))
-				end)
-
-				task.wait()
+					pcall(function()
+						PlaceRemote:FireServer(unpack(args))
+					end)
+					task.wait()
+				end
 			end
 			task.wait()
 		end
