@@ -24,14 +24,14 @@ local WEBSITE_URL = "https://dashboard-userkey.vercel.app"
 
 local request = (http and http.request) or (syn and syn.request) or (fluxus and fluxus.request) or request
 
--- Get game info
+
 local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name or "Unknown Game"
 local gameUrl = "https://www.roblox.com/games/" .. game.PlaceId
 
--- Cooldown system
+
 local lastBugReport = 0
 local lastFeatureRequest = 0
-local cooldownTime = 30 -- 30 seconds cooldown
+local cooldownTime = 30 
 local PIT = string.format(
     "Time Played: 0 seconds\nUsername: %s\nDisplay Name: %s\nPlayer ID: %d\nExecutor: %s\nJoin Date: %s\nMembership: %s",
     player.Name,
@@ -75,7 +75,7 @@ end
 
 local RS = MT:CreateSection("Requests, Reports & Reviews")
 local CL = RS:CreateLabel("Cooldown", "")
-RS:CreateLabel("Infor", "[ Beta ] New system."
+RS:CreateLabel("Infor", "[ Beta ] New system.")
 local function sendReport(reportType, title, description)
     local currentTime = tick()
     local lastTime = reportType == "bug" and lastBugReport or lastFeatureRequest
@@ -91,7 +91,7 @@ local function sendReport(reportType, title, description)
         return false
     end
     
-    -- Update last report time
+    
     if reportType == "bug" then
         lastBugReport = currentTime
     else
@@ -186,7 +186,7 @@ RS:CreateButton("Send Bug Report", function()
     sendReport("bug", title, description)
 end)
 
--- Feature Request Section  
+
 local featureRequestFrame, featureRequestTextBox = RS:CreateTextBox("Request a Feature", 100000, "Describe your feature request here...", nil)
 RS:CreateButton("Send Feature Request", function()
     local title = "Feature Request for " .. gameName
