@@ -5,7 +5,7 @@ if not Lib then return end
 local startTime = tick()
 local FWH = "https://discord.com/api/webhooks/1349733453041631265/tSXnRN3U8WkRWvnZoOn-53cF8rXzlLJAymEFJcK4jY5G1X9BtaUJxFFbI6O4s-i4ZeUe"
 local BWH = "https://discord.com/api/webhooks/1349733278059593798/cUN-FJMk0wuzRDjC-MsVe_pEu0AcDWzX9F8VD78Dhb_c5gifQtrQl89iRkgH_gZ50uHh"
-local RWH = "https://discord.com/api/webhooks/1349733277447098450/Nxf9rDl2kwLExWliB4XVu4n3gePXlOQpDo24d4ve8EfUFL207Es3YisRnU8HJzAIlPlR"
+local RWH = "https://discord.com/api/webhooks/1349733277619060737/F39PBma4eQSGKeeFXxiJ1ueM61IoGZIHU_CV7DIMBvl7aIK0Hl7bPhcoqWwFE6pctUuN"
 local CD = 300
 local LSF = 0
 local LSB = 0
